@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 환경변수 ###
+.env
+
+### 프로젝트 상세 내용###
+PROJECT.md
