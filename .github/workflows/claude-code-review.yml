@@ -43,9 +43,7 @@ jobs:
           # 리뷰 결과가 (인라인/총평) 댓글로 실제 게시된다. 없으면 도구 호출이
           # permission denial로 막혀 아무 댓글도 남지 않는다.
           claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*)"
-          # TEMP: 도구 호출이 거부되는 원인 진단용. 원인 파악 후 제거할 것.
-          show_full_output: true
+            --allowedTools "Skill,mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*)"
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
