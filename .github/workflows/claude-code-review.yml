@@ -44,6 +44,8 @@ jobs:
           # permission denial로 막혀 아무 댓글도 남지 않는다.
           claude_args: |
             --allowedTools "Skill,mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search:*)"
+          # TEMP: 잔여 permission_denials_count 원인 진단용. 확인 후 제거할 것.
+          show_full_output: true
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
