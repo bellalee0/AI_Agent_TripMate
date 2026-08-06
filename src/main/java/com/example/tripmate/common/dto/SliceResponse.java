@@ -1,4 +1,4 @@
-package com.example.tripmate.common.response;
+package com.example.tripmate.common.dto;
 
 import java.util.List;
 import lombok.Getter;

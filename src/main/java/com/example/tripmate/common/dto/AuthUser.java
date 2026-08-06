@@ -1,4 +1,4 @@
-package com.example.tripmate.common.response;
+package com.example.tripmate.common.dto;
 
 import com.example.tripmate.common.enums.UserRole;
 import java.util.Collection;

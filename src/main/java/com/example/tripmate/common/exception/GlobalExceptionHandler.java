@@ -1,6 +1,6 @@
 package com.example.tripmate.common.exception;
 
-import com.example.tripmate.common.response.CommonResponse;
+import com.example.tripmate.common.dto.CommonResponse;
 import jakarta.servlet.ServletException;
 import java.util.concurrent.TimeoutException;
 import lombok.extern.slf4j.Slf4j;

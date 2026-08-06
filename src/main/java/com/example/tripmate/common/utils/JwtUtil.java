@@ -1,7 +1,7 @@
 package com.example.tripmate.common.utils;
 
 import com.example.tripmate.common.enums.UserRole;
-import com.example.tripmate.common.response.AuthUser;
+import com.example.tripmate.common.dto.AuthUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

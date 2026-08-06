@@ -1,6 +1,6 @@
 package com.example.tripmate.common.jwt;
 
-import com.example.tripmate.common.response.AuthUser;
+import com.example.tripmate.common.dto.AuthUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {

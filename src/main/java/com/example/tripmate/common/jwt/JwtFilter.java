@@ -2,8 +2,8 @@ package com.example.tripmate.common.jwt;
 
 import com.example.tripmate.common.exception.ErrorCode;
 import com.example.tripmate.common.exception.CustomException;
-import com.example.tripmate.common.response.AuthUser;
-import com.example.tripmate.common.response.CommonResponse;
+import com.example.tripmate.common.dto.AuthUser;
+import com.example.tripmate.common.dto.CommonResponse;
 import com.example.tripmate.common.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
