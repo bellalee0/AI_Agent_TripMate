@@ -1,7 +1,10 @@
 package com.example.tripmate.common.entity;
 
+import com.example.tripmate.common.enums.SocialAccountProvider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,15 +37,16 @@ public class SocialAccount extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String provider;
+    private SocialAccountProvider provider;
 
     @Column(nullable = false, unique = true)
     private String providerId;
 
     public SocialAccount(User user, String providerId) {
         this.user = user;
-        this.provider = "KAKAO";
+        this.provider = SocialAccountProvider.KAKAO;
         this.providerId = providerId;
     }
 }
