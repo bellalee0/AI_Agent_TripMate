@@ -37,7 +37,7 @@ public class ChatMessage {
     private Long sequence;
 
     @CreatedDate
-    private LocalDateTime createdDatetime;
+    private LocalDateTime createdDateTime;
 
     public ChatMessage(Long roomId, Long senderId, String content, boolean aiCall, String senderNickname, String senderProfile, Long sequence, LocalDateTime createdDatetime) {
         this.roomId = roomId;
