@@ -36,4 +36,9 @@ public class Follow extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_b_id", nullable = false)
     private User userB;
+
+    public Follow(User userA, User userB) {
+        this.userA = userA;
+        this.userB = userB;
+    }
 }
