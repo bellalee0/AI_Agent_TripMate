@@ -1,6 +1,7 @@
 package com.example.tripmate.domain.auth.controller;
 
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_LOGIN_SUCCESS;
+import static com.example.tripmate.common.enums.SuccessMessage.AUTH_LOGOUT_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_REISSUE_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_SIGNUP_SUCCESS;
 
@@ -96,6 +97,38 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.successNodata(AUTH_REISSUE_SUCCESS));
+    }
+
+    /**
+     * 로그아웃 (쿠키 삭제)
+     */
+    @Operation(
+        summary = "로그아웃",
+        description = "쿠키를 만료시켜 로그아웃 처리합니다."
+    )
+    @PostMapping("/logout")
+    public ResponseEntity<CommonResponse<Void>> logout(HttpServletResponse response) {
+
+        ResponseCookie atCookie = ResponseCookie.from("accessToken", "")
+            .path("/")
+            .httpOnly(true)
+            .secure(true)
+            .maxAge(0)
+            .sameSite("None")
+            .build();
+
+        ResponseCookie rtCookie = ResponseCookie.from("refreshToken", "")
+            .path("/")
+            .httpOnly(true)
+            .secure(true)
+            .maxAge(0)
+            .sameSite("None")
+            .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, atCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, rtCookie.toString());
+
+        return ResponseEntity.ok(CommonResponse.successNodata(AUTH_LOGOUT_SUCCESS));
     }
 
     /**
