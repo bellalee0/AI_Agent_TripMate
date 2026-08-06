@@ -44,7 +44,7 @@ public class JwtUtil {
     /**
      * 토큰 생성
      */
-    public String generateAccessToken(Long id, String email, String nickname, UserRole userRole) {
+    public String generateAccessToken(Long id, String email, UserRole userRole) {
 
         Date now = new Date();
 
@@ -97,7 +97,7 @@ public class JwtUtil {
         try {
             Date expDate = extractAllClaims(token).getExpiration();
             return new Date().after(expDate);
-        } catch (ExpiredJwtException e){
+        } catch (ExpiredJwtException e) {
             return true;
         }
     }
