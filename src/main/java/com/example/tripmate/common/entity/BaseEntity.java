@@ -18,17 +18,17 @@ public abstract class BaseEntity {
     private boolean deleted = false;
 
     @Column
-    private LocalDateTime deletedDatetime;
+    private LocalDateTime deletedDateTime;
 
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdDatetime;
+    private LocalDateTime createdDateTime;
 
     @LastModifiedDate
-    private LocalDateTime modifiedDatetime;
+    private LocalDateTime modifiedDateTime;
 
     public void delete() {
         this.deleted = true;
-        this.deletedDatetime = LocalDateTime.now();
+        this.deletedDateTime = LocalDateTime.now();
     }
 }
