@@ -12,11 +12,9 @@ on:
 
 jobs:
   claude:
-    if: |
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
-      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+    # 트리거 문구(@claude) 감지는 claude-code-action 내부 로직에 맡긴다.
+    # 커스텀 if 게이트를 별도로 두면 리뷰 배치 제출(Start a review -> Submit) 등
+    # 특정 이벤트 조합에서 조건이 어긋나 job 자체가 스킵되는 문제가 있었다.
     runs-on: ubuntu-latest
     permissions:
       contents: read

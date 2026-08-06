@@ -23,7 +23,7 @@
 - `entity` : 전체 엔티티
 - `jwt` : 인증/인가 설정 및 필터
 - `exception` : 공통 예외, 예외 코드, 전역 예외 핸들러
-- `response` : 공통 응답 객체
+- `dto` : 공통 응답 객체 및 프로젝트 전역에서 사용할 dto
 - `utils` : 프로젝트 내에서 사용할 자체 메서드
 - `config` : 설정 클래스
 - `enums` : 프로젝트 전역에서 사용하는 enum 관리
@@ -45,7 +45,7 @@ com.example.tripmate
 │   ├── jwt
 │   ├── exception
 │   ├── utils
-│   ├── response
+│   ├── dto
 │   ├── enums
 │   ├── constants
 │   └── config
