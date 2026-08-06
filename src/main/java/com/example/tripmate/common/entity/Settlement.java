@@ -44,7 +44,8 @@ public class Settlement extends BaseEntity {
 
     private LocalDateTime settledDateTime;
 
-    public Settlement(User fromUser, User toUser, Integer amount, boolean settled) {
+    public Settlement(Group group, User fromUser, User toUser, Integer amount, boolean settled) {
+        this.group = group;
         this.fromUser = fromUser;
         this.toUser = toUser;
         this.amount = amount;
