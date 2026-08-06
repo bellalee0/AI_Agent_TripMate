@@ -1,6 +1,7 @@
 package com.example.tripmate.domain.auth.controller;
 
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_LOGIN_SUCCESS;
+import static com.example.tripmate.common.enums.SuccessMessage.AUTH_REISSUE_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_SIGNUP_SUCCESS;
 
 import com.example.tripmate.common.dto.CommonResponse;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,6 +76,26 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.successNodata(AUTH_LOGIN_SUCCESS));
+    }
+
+    /**
+     * 액세스 토큰 재발급
+     */
+    @Operation(
+        summary = "액세스 토큰 재발급",
+        description = "Refresh 토큰을 기반으로 Access 토큰을 재발급합니다."
+    )
+    @PostMapping("/reissue")
+    public ResponseEntity<CommonResponse<Void>> reissueToken(
+        @CookieValue(name = "refreshToken") String refreshToken,
+        HttpServletResponse response
+    ) {
+        AuthTokenResponse authTokenResponse = authService.reissueToken(refreshToken);
+
+        addCookies(response, authTokenResponse);
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.successNodata(AUTH_REISSUE_SUCCESS));
     }
 
     /**

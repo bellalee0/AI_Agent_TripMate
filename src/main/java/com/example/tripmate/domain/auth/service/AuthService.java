@@ -11,11 +11,11 @@ import com.example.tripmate.domain.auth.dto.request.AuthSignupRequest;
 import com.example.tripmate.domain.auth.dto.response.AuthTokenResponse;
 import com.example.tripmate.domain.auth.repository.RefreshTokenRepository;
 import com.example.tripmate.domain.user.repository.UserRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class AuthService {
      * 회원가입
      */
     @Transactional
-    public AuthTokenResponse signup(@Valid AuthSignupRequest request) {
+    public AuthTokenResponse signup(AuthSignupRequest request) {
 
         String email = request.getEmail();
         String nickname = request.getNickname();
@@ -69,6 +69,40 @@ public class AuthService {
         }
 
         return generateToken(user);
+    }
+
+    /**
+     * 액세스 토큰 재발급
+     */
+    @Transactional
+    public AuthTokenResponse reissueToken(String refreshToken) {
+
+        if (jwtUtil.isExpired(refreshToken)) {
+            throw new CustomException(ErrorCode.EXPIRED_TOKEN);
+        }
+
+        if (!jwtUtil.validateToken(refreshToken)) {
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
+        }
+
+        Long userId = jwtUtil.extractUserId(refreshToken);
+
+        RefreshToken userRefresh = refreshTokenRepository.findUserRefreshByUserId(userId);
+
+        if (!ObjectUtils.nullSafeEquals(refreshToken, userRefresh.getToken())) {
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
+        }
+
+        User user = userRefresh.getUser();
+
+        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail(), user.getRole());
+
+        if (jwtUtil.expireInTwoDays(refreshToken)) {
+            refreshToken = jwtUtil.generateRefreshToken(userId);
+            userRefresh.updateRefreshToken(refreshToken);
+        }
+
+        return new AuthTokenResponse(accessToken, refreshToken);
     }
 
     /**
