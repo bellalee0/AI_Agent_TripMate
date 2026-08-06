@@ -1,6 +1,6 @@
 package com.example.tripmate.common.jwt;
 
-import com.example.tripmate.common.enums.ErrorCode;
+import com.example.tripmate.common.exception.ErrorCode;
 import com.example.tripmate.common.exception.CustomException;
 import com.example.tripmate.common.response.AuthUser;
 import com.example.tripmate.common.response.CommonResponse;

@@ -1,6 +1,6 @@
 package com.example.tripmate.common.jwt;
 
-import com.example.tripmate.common.enums.ErrorCode;
+import com.example.tripmate.common.exception.ErrorCode;
 import com.example.tripmate.common.response.CommonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,5 @@
 package com.example.tripmate.common.exception;
 
-import com.example.tripmate.common.enums.ErrorCode;
 import lombok.Getter;
 
 @Getter

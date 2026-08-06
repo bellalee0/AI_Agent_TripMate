@@ -1,6 +1,5 @@
 package com.example.tripmate.common.exception;
 
-import com.example.tripmate.common.enums.ErrorCode;
 import com.example.tripmate.common.response.CommonResponse;
 import jakarta.servlet.ServletException;
 import java.util.concurrent.TimeoutException;

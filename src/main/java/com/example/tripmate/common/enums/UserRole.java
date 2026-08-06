@@ -1,6 +1,7 @@
 package com.example.tripmate.common.enums;
 
 import com.example.tripmate.common.exception.CustomException;
+import com.example.tripmate.common.exception.ErrorCode;
 import java.util.Arrays;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

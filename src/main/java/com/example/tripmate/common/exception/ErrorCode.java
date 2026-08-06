@@ -1,4 +1,4 @@
-package com.example.tripmate.common.enums;
+package com.example.tripmate.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
