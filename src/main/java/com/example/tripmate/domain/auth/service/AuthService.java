@@ -6,6 +6,7 @@ import com.example.tripmate.common.enums.UserRole;
 import com.example.tripmate.common.exception.CustomException;
 import com.example.tripmate.common.exception.ErrorCode;
 import com.example.tripmate.common.utils.JwtUtil;
+import com.example.tripmate.domain.auth.dto.request.AuthLoginRequest;
 import com.example.tripmate.domain.auth.dto.request.AuthSignupRequest;
 import com.example.tripmate.domain.auth.dto.response.AuthTokenResponse;
 import com.example.tripmate.domain.auth.repository.RefreshTokenRepository;
@@ -51,6 +52,23 @@ public class AuthService {
         AuthTokenResponse authTokenResponse = generateToken(user);
 
         return authTokenResponse;
+    }
+
+    /**
+     * 로그인
+     */
+    @Transactional
+    public AuthTokenResponse login(AuthLoginRequest request) {
+
+        User user = userRepository.findActivateUserByEmail(request.getEmail());
+
+        boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
+
+        if (!matches) {
+            throw new CustomException(ErrorCode.INCORRECT_PASSWORD);
+        }
+
+        return generateToken(user);
     }
 
     /**

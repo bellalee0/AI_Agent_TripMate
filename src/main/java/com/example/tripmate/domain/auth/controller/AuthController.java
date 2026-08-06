@@ -1,8 +1,10 @@
 package com.example.tripmate.domain.auth.controller;
 
+import static com.example.tripmate.common.enums.SuccessMessage.AUTH_LOGIN_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.AUTH_SIGNUP_SUCCESS;
 
 import com.example.tripmate.common.dto.CommonResponse;
+import com.example.tripmate.domain.auth.dto.request.AuthLoginRequest;
 import com.example.tripmate.domain.auth.dto.request.AuthSignupRequest;
 import com.example.tripmate.domain.auth.dto.response.AuthTokenResponse;
 import com.example.tripmate.domain.auth.service.AuthService;
@@ -48,6 +50,30 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(CommonResponse.successNodata(AUTH_SIGNUP_SUCCESS));
+    }
+
+    /**
+     * 로그인
+     */
+    @Operation(
+        summary = "로그인",
+        description = """
+                    등록된 이메일과 비밀번호를 입력하여 토큰을 발급받습니다.
+                    
+                     - 토큰 만료 : 1시간
+                    """
+    )
+    @PostMapping("/login")
+    public ResponseEntity<CommonResponse<Void>> login(
+        @Valid @RequestBody AuthLoginRequest request,
+        HttpServletResponse response
+    ) {
+        AuthTokenResponse authTokenResponse = authService.login(request);
+
+        addCookies(response, authTokenResponse);
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.successNodata(AUTH_LOGIN_SUCCESS));
     }
 
     /**
