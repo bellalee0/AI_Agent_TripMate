@@ -39,7 +39,7 @@ public class ChatMessage {
     @CreatedDate
     private LocalDateTime createdDateTime;
 
-    public ChatMessage(Long roomId, Long senderId, String content, boolean aiCall, String senderNickname, String senderProfile, Long sequence, LocalDateTime createdDatetime) {
+    public ChatMessage(Long roomId, Long senderId, String content, boolean aiCall, String senderNickname, String senderProfile, Long sequence) {
         this.roomId = roomId;
         this.senderId = senderId;
         this.content = content;
@@ -47,6 +47,5 @@ public class ChatMessage {
         this.senderNickname = senderNickname;
         this.senderProfile = senderProfile;
         this.sequence = sequence;
-        this.createdDatetime = createdDatetime;
     }
 }
