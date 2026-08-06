@@ -9,4 +9,5 @@ public final class ValidationMessage {
     public static final String EMAIL_NOT_BLANK = "이메일은 필수입니다.";
     public static final String EMAIL_FORMAT = "올바른 이메일 형식이 아닙니다.";
     public static final String PASSWORD_NOT_BLANK = "비밀번호는 필수입니다.";
+    public static final String VERIFICATION_CODE_NOT_BLANK = "인증코드는 필수입니다.";
 }
