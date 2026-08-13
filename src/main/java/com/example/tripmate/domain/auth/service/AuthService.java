@@ -47,9 +47,9 @@ public class AuthService {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
         User user = new User(email, request.getName(), nickname, encodedPassword, null, UserRole.USER);
-        userRepository.saveAndFlush(user);
+        User savedUser = userRepository.saveAndFlush(user);
 
-        AuthTokenResponse authTokenResponse = generateToken(user);
+        AuthTokenResponse authTokenResponse = generateToken(savedUser);
 
         return authTokenResponse;
     }
@@ -100,6 +100,7 @@ public class AuthService {
         if (jwtUtil.expireInTwoDays(refreshToken)) {
             refreshToken = jwtUtil.generateRefreshToken(userId);
             userRefresh.updateRefreshToken(refreshToken);
+            refreshTokenRepository.saveAndFlush(userRefresh);
         }
 
         return new AuthTokenResponse(accessToken, refreshToken);
