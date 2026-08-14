@@ -72,14 +72,14 @@ public class UserService {
         String oldPassword = request.getOldPassword();
         String newPassword = request.getNewPassword();
 
-        if (ObjectUtils.nullSafeEquals(oldPassword, newPassword)) {
-            throw new CustomException(ErrorCode.SAME_PASSWORD);
-        }
-
         User user = userRepository.findActiveUserById(authUser.getId());
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new CustomException(ErrorCode.INCORRECT_PASSWORD);
+        }
+
+        if (ObjectUtils.nullSafeEquals(oldPassword, newPassword)) {
+            throw new CustomException(ErrorCode.SAME_PASSWORD);
         }
 
         String encodedPassword = passwordEncoder.encode(newPassword);
