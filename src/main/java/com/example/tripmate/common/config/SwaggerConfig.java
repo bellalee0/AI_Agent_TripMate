@@ -24,7 +24,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
             .tags(List.of(
-                new Tag().name("Auth").description("인증/인가를 다루는 API입니다.")
+                new Tag().name("Auth").description("인증/인가를 다루는 API입니다."),
+                new Tag().name("User").description("유저 정보 관리를 다루는 API입니다.")
             ))
             .addSecurityItem(new SecurityRequirement().addList("JWT"))
             .components(new Components()
