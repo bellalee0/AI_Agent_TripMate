@@ -24,4 +24,15 @@ public class UserService {
 
         return UserGetProfileResponse.from(user);
     }
+
+    /**
+     * 다른 유저 프로필 조회
+     */
+    @Transactional(readOnly = true)
+    public UserGetProfileResponse getUserProfile(Long userId) {
+
+        User user = userRepository.findActiveUserById(userId);
+
+        return UserGetProfileResponse.from(user);
+    }
 }
