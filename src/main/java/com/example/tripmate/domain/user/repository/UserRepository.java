@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmailAndDeletedFalse(String email);
 
-    default User findActivateUserByEmail(String email) {
+    default User findActiveUserByEmail(String email) {
         return findByEmailAndDeletedFalse(email)
             .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }

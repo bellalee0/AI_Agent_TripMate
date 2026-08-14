@@ -164,7 +164,7 @@ class AuthServiceTest {
             rawPassword
         );
 
-        when(userRepository.findActivateUserByEmail(anyString())).thenReturn(user);
+        when(userRepository.findActiveUserByEmail(anyString())).thenReturn(user);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         when(jwtUtil.generateAccessToken(anyLong(), anyString(), any(UserRole.class))).thenReturn(accessToken);
         when(jwtUtil.generateRefreshToken(anyLong())).thenReturn(refreshToken);
@@ -194,7 +194,7 @@ class AuthServiceTest {
             rawPassword
         );
 
-        when(userRepository.findActivateUserByEmail(anyString())).thenReturn(user);
+        when(userRepository.findActiveUserByEmail(anyString())).thenReturn(user);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
 
         // When
@@ -227,7 +227,7 @@ class AuthServiceTest {
 
         RefreshToken refreshToken = new RefreshToken(user, oldRefreshToken);
 
-        when(userRepository.findActivateUserByEmail(anyString())).thenReturn(user);
+        when(userRepository.findActiveUserByEmail(anyString())).thenReturn(user);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         when(jwtUtil.generateAccessToken(anyLong(), anyString(), any(UserRole.class))).thenReturn(accessToken);
         when(jwtUtil.generateRefreshToken(anyLong())).thenReturn(newRefreshToken);

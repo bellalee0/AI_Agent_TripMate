@@ -60,7 +60,7 @@ public class AuthService {
     @Transactional
     public AuthTokenResponse login(AuthLoginRequest request) {
 
-        User user = userRepository.findActivateUserByEmail(request.getEmail());
+        User user = userRepository.findActiveUserByEmail(request.getEmail());
 
         boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
