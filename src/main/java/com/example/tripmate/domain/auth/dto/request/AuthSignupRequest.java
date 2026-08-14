@@ -17,7 +17,7 @@ public class AuthSignupRequest {
     private String name;
 
     @NotBlank(message = ValidationMessage.NICKNAME_NOT_BLANK)
-    @Size(max = 20, message = ValidationMessage.USERNAME_SIZE)
+    @Size(max = 20, message = ValidationMessage.NICKNAME_SIZE)
     private String nickname;
 
     @NotBlank(message = ValidationMessage.EMAIL_NOT_BLANK)
