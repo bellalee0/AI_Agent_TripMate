@@ -53,6 +53,10 @@ public class UserService {
 
         String newNickname = request.getNickname();
 
+        if (ObjectUtils.nullSafeEquals(user.getNickname(), newNickname)) {
+            throw new CustomException(ErrorCode.SAME_NICKNAME);
+        }
+
         if (userRepository.existsByNickname(newNickname)) {
             throw new CustomException(ErrorCode.NICKNAME_EXIST);
         }
