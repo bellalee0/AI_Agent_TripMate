@@ -109,53 +109,37 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<CommonResponse<Void>> logout(HttpServletResponse response) {
 
-        ResponseCookie atCookie = ResponseCookie.from("accessToken", "")
-            .path("/")
-            .httpOnly(true)
-            .secure(true)
-            .maxAge(0)
-            .sameSite("None")
-            .build();
+        ResponseCookie accessTokenCookie = createCookie("accessToken", "", 0);
+        ResponseCookie refreshTokenCookie = createCookie("refreshToken", "", 0);
 
-        ResponseCookie rtCookie = ResponseCookie.from("refreshToken", "")
-            .path("/")
-            .httpOnly(true)
-            .secure(true)
-            .maxAge(0)
-            .sameSite("None")
-            .build();
-
-        response.addHeader(HttpHeaders.SET_COOKIE, atCookie.toString());
-        response.addHeader(HttpHeaders.SET_COOKIE, rtCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
         return ResponseEntity.ok(CommonResponse.successNodata(AUTH_LOGOUT_SUCCESS));
     }
 
     /**
-     * 쿠키 생성기
+     * 쿠키 생성 후 response에 저장
      */
     private void addCookies(HttpServletResponse response, AuthTokenResponse tokenResponse) {
 
-        String at = tokenResponse.getToken();
-        String rt = tokenResponse.getRefreshToken();
-
-        ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", at)
-            .path("/")
-            .httpOnly(true)
-            .secure(true)
-            .maxAge(3600)
-            .sameSite("None")
-            .build();
-
-        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", rt)
-            .path("/")
-            .httpOnly(true)
-            .secure(true)
-            .maxAge(604800)
-            .sameSite("None")
-            .build();
+        ResponseCookie accessTokenCookie = createCookie("accessToken", tokenResponse.getToken(), 3600);
+        ResponseCookie refreshTokenCookie = createCookie("refreshToken", tokenResponse.getRefreshToken(), 604800);
 
         response.addHeader(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
         response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
+    }
+
+    /**
+     * 쿠키 생성
+     */
+    private ResponseCookie createCookie(String name, String value, long maxAge) {
+        return ResponseCookie.from(name, value)
+            .path("/")
+            .httpOnly(true)
+            .secure(true)
+            .maxAge(maxAge)
+            .sameSite("None")
+            .build();
     }
 }
