@@ -152,7 +152,7 @@ class EmailServiceTest {
 
     @Test
     @DisplayName("이메일 인증 번호 확인 실패 - 잘못된 코드 입력")
-    void verifyCode_failure_wrondCode() {
+    void verifyCode_failure_wrongCode() {
 
         // Given
         String email = "test@test.com";
