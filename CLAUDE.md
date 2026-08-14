@@ -105,7 +105,8 @@ public ResponseEntity<CommonResponse<TodoResponse>> getTodo(@PathVariable Long t
 
     TodoResponse response = todoService.getTodo(todoId);
 
-    return ResponseEntity.ok(CommonResponse.success(TODO_GET_SUCCESS, response));
+    return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.success(TODO_GET_SUCCESS, response));
 }
 
 // Service - Controller와 동일한 메서드명 사용
@@ -237,7 +238,9 @@ public ResponseEntity<Page<TodoResponse>> getTodos(
         )
         Pageable pageable
 ) {
-    return ResponseEntity.ok(todoService.getTodos(pageable, weather, startDate, endDate));
+    Page<TodoResponse> response = todoService.getTodos(pageable, weather, startDate, endDate);
+
+    return ResponseEntity.status(HttpStatus.OK).body(response);
 }
 ```
 
@@ -314,6 +317,30 @@ public class UserService {
     }
 }
 ```
+
+### 10. HTTP 상태 코드 명시
+
+`ResponseEntity`는 항상 `ResponseEntity.status(HttpStatus.X).body(...)` 형태로 상태 코드를 명시한다. `ResponseEntity.ok(...)`, `ResponseEntity.created(uri)`, `ResponseEntity.noContent()` 등 상태 코드가 메서드명에 축약되어 있는 형태는 사용하지 않는다.
+
+```java
+// X
+return ResponseEntity.ok(CommonResponse.success(USER_GET_SUCCESS, response));
+
+// O
+return ResponseEntity.status(HttpStatus.OK)
+        .body(CommonResponse.success(USER_GET_SUCCESS, response));
+```
+
+상태 코드는 API의 의미에 맞게 선택한다.
+
+- `HttpStatus.CREATED` (201) : 새로운 리소스를 생성하는 API (예: 회원가입, 게시글 생성)
+- `HttpStatus.OK` (200) : 그 외 대부분의 API (조회, 수정, 삭제, 로그인/로그아웃/토큰 재발급, 인증번호 발송/확인 등 리소스를 새로 생성하지 않는 액션)
+
+리뷰 시 아래 항목을 확인한다.
+
+- [ ] `ResponseEntity.ok()` 등 축약 메서드를 사용하지 않고 `status(HttpStatus.X)`로 명시했는가
+- [ ] 새 리소스를 생성하는 API(POST)가 `CREATED`를 반환하는가
+- [ ] 리소스를 생성하지 않는 API(조회/수정/삭제/로그인 등 액션성 POST)가 `OK`를 반환하는가
 
 ---
 
