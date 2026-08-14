@@ -201,7 +201,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("회원 탈퇴 정상 처리")
-    void deleteUser() {
+    void deleteUser_success() {
 
         // Given
         AuthUser authUser = UserFixture.testAuthUser();
