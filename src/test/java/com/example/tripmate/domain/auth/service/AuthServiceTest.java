@@ -207,7 +207,7 @@ class AuthServiceTest {
 
     @Test
     @DisplayName("Refresh 토큰 재발급 정상 처리")
-    void generateToken_success() {
+    void login_success_updateRefreshToken() {
 
         // Given
         User user = UserFixture.testUser();
