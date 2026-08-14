@@ -2,6 +2,9 @@ package com.example.tripmate.domain.user.service;
 
 import com.example.tripmate.common.dto.AuthUser;
 import com.example.tripmate.common.entity.User;
+import com.example.tripmate.common.exception.CustomException;
+import com.example.tripmate.common.exception.ErrorCode;
+import com.example.tripmate.domain.user.dto.request.UserUpdateProfileRequest;
 import com.example.tripmate.domain.user.dto.response.UserGetProfileResponse;
 import com.example.tripmate.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,26 @@ public class UserService {
     public UserGetProfileResponse getUserProfile(Long userId) {
 
         User user = userRepository.findActiveUserById(userId);
+
+        return UserGetProfileResponse.from(user);
+    }
+
+    /**
+     * 내 프로필 수정
+     */
+    @Transactional
+    public UserGetProfileResponse updateProfile(AuthUser authUser, UserUpdateProfileRequest request) {
+
+        User user = userRepository.findActiveUserById(authUser.getId());
+
+        String newNickname = request.getNickname();
+
+        if (userRepository.existsByNickname(newNickname)) {
+            throw new CustomException(ErrorCode.NICKNAME_EXIST);
+        }
+
+        user.updateNickname(newNickname);
+        userRepository.saveAndFlush(user);
 
         return UserGetProfileResponse.from(user);
     }

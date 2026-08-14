@@ -2,19 +2,24 @@ package com.example.tripmate.domain.user.controller;
 
 import static com.example.tripmate.common.enums.SuccessMessage.USER_GET_MY_PROFILE_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.USER_GET_USER_PROFILE_SUCCESS;
+import static com.example.tripmate.common.enums.SuccessMessage.USER_UPDATE_PROFILE_SUCCESS;
 
 import com.example.tripmate.common.dto.AuthUser;
 import com.example.tripmate.common.dto.CommonResponse;
+import com.example.tripmate.domain.user.dto.request.UserUpdateProfileRequest;
 import com.example.tripmate.domain.user.dto.response.UserGetProfileResponse;
 import com.example.tripmate.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,5 +69,26 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(CommonResponse.success(USER_GET_USER_PROFILE_SUCCESS, response));
+    }
+
+    /**
+     * 내 프로필 수정
+     */
+    @Operation(
+        summary = "내 프로필 수정",
+        description = """
+                    닉네임을 수정합니다
+                    """
+    )
+    @PatchMapping("/me")
+    public ResponseEntity<CommonResponse<UserGetProfileResponse>> updateProfile(
+        @AuthenticationPrincipal AuthUser authUser,
+        @Valid @RequestBody UserUpdateProfileRequest request
+    ) {
+
+        UserGetProfileResponse response = userService.updateProfile(authUser, request);
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.success(USER_UPDATE_PROFILE_SUCCESS, response));
     }
 }
