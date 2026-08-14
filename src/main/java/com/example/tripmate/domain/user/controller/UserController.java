@@ -47,7 +47,7 @@ public class UserController {
 
         UserGetProfileResponse response = userService.getMyProfile(authUser);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.success(USER_GET_MY_PROFILE_SUCCESS, response));
     }
 
@@ -67,7 +67,7 @@ public class UserController {
 
         UserGetProfileResponse response = userService.getUserProfile(userId);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.success(USER_GET_USER_PROFILE_SUCCESS, response));
     }
 

@@ -115,7 +115,8 @@ public class AuthController {
         response.addHeader(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
         response.addHeader(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
-        return ResponseEntity.ok(CommonResponse.successNodata(AUTH_LOGOUT_SUCCESS));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.successNodata(AUTH_LOGOUT_SUCCESS));
     }
 
     /**
