@@ -10,4 +10,9 @@ public final class ValidationMessage {
     public static final String EMAIL_FORMAT = "올바른 이메일 형식이 아닙니다.";
     public static final String PASSWORD_NOT_BLANK = "비밀번호는 필수입니다.";
     public static final String VERIFICATION_CODE_NOT_BLANK = "인증코드는 필수입니다.";
+
+    // --- Group 관련 ---
+    public static final String GROUP_NAME_NOT_BLANK = "그룹 이름은 필수입니다.";
+    public static final String GROUP_PASSWORD_PATTERN = "비밀번호는 4자리 숫자를 입력해주세요.";
+
 }

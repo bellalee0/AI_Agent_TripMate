@@ -23,6 +23,9 @@ public enum SuccessMessage {
     USER_UPDATE_PASSWORD_SUCCESS("비밀번호 변경 성공"),
     USER_DELETE_SUCCESS("회원 탈퇴 성공"),
 
+    // 그룹
+    GROUP_CREATE_SUCCESS("그룹 생성 성공"),
+
     ;
 
     private final String message;
