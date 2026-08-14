@@ -22,6 +22,11 @@ spring:
   mongodb:
     uri: ${MONGO_DB_URI}
 
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
 logging:
   level:
     root: INFO

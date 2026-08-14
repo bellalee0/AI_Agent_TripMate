@@ -321,21 +321,21 @@ public class UserService {
 
 ### Given-When-Then 구조 사용
 
-테스트 메서드 내부를 given / when / then 세 블록으로 명확히 구분하고 주석으로 표시한다.
+테스트 메서드 내부를 given(Given) / when(When) / then(Then) 세 블록으로 명확히 구분하고 주석으로 표시한다.
 
 ```java
 @Test
 void getTodo_성공() {
 
-    // given
+    // given(Given)
     Long todoId = 1L;
     Todo todo = TodoFixture.create(todoId);
     given(todoRepository.findTodoById(todoId)).willReturn(todo);
 
-    // when
+    // when(When)
     TodoResponse response = todoService.getTodo(todoId);
 
-    // then
+    // then(Then)
     assertThat(response.id()).isEqualTo(todoId);
 }
 ```
@@ -343,7 +343,7 @@ void getTodo_성공() {
 ### API 생성 시 테스트코드 즉시 작성
 
 - 컨트롤러/서비스 API 구현 직후, 같은 PR 안에서 테스트 코드까지 함께 작성한다.
-- 테스트 코드 없는 API 구현 PR은 리뷰 요청하지 않는다. 이 저장소에서 새로운 API 엔드포인트를 추가하는 PR에 대응하는 테스트 코드가 없으면 리뷰에서 반드시 지적한다.
+- 테스트는 Service 내 메서드를 기준으로 단위 테스트로 진행한다.
 
 ---
 

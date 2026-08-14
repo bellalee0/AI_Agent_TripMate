@@ -136,4 +136,8 @@ public class JwtUtil {
 
         return new AuthUser(userId, email, userRole);
     }
+
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("id", Long.class);
+    }
 }
