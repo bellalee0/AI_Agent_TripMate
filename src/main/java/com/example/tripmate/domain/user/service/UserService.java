@@ -92,13 +92,11 @@ public class UserService {
      * 회원 탈퇴
      */
     @Transactional
-    public boolean deleteUser(AuthUser authUser) {
+    public void deleteUser(AuthUser authUser) {
 
         User user = userRepository.findActiveUserById(authUser.getId());
 
         user.delete();
         userRepository.saveAndFlush(user);
-
-        return true;
     }
 }

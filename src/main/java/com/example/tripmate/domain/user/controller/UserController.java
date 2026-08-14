@@ -127,13 +127,13 @@ public class UserController {
                     """
     )
     @DeleteMapping("/me")
-    public ResponseEntity<CommonResponse<Boolean>> deleteUser(
+    public ResponseEntity<CommonResponse<Void>> deleteUser(
         @AuthenticationPrincipal AuthUser authUser
     ) {
 
-        boolean result = userService.deleteUser(authUser);
+        userService.deleteUser(authUser);
 
         return ResponseEntity.status(HttpStatus.OK)
-            .body(CommonResponse.success(USER_DELETE_SUCCESS, result));
+            .body(CommonResponse.successNodata(USER_DELETE_SUCCESS));
     }
 }
