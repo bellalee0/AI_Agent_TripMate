@@ -63,6 +63,9 @@ public class UserService {
         return UserGetProfileResponse.from(user);
     }
 
+    /**
+     * 비빌번호 변경
+     */
     @Transactional
     public void updatePassword(AuthUser authUser, UserUpdatePasswordRequest request) {
 
@@ -83,5 +86,19 @@ public class UserService {
 
         user.updatePassword(encodedPassword);
         userRepository.saveAndFlush(user);
+    }
+
+    /**
+     * 회원 탈퇴
+     */
+    @Transactional
+    public boolean deleteUser(AuthUser authUser) {
+
+        User user = userRepository.findActiveUserById(authUser.getId());
+
+        user.delete();
+        userRepository.saveAndFlush(user);
+
+        return true;
     }
 }

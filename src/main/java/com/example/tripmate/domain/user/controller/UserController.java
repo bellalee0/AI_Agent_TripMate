@@ -1,7 +1,9 @@
 package com.example.tripmate.domain.user.controller;
 
+import static com.example.tripmate.common.enums.SuccessMessage.USER_DELETE_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.USER_GET_MY_PROFILE_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.USER_GET_USER_PROFILE_SUCCESS;
+import static com.example.tripmate.common.enums.SuccessMessage.USER_UPDATE_PASSWORD_SUCCESS;
 import static com.example.tripmate.common.enums.SuccessMessage.USER_UPDATE_PROFILE_SUCCESS;
 
 import com.example.tripmate.common.dto.AuthUser;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,6 +114,26 @@ public class UserController {
         userService.updatePassword(authUser, request);
 
         return ResponseEntity.status(HttpStatus.OK)
-            .body(CommonResponse.successNodata(USER_UPDATE_PROFILE_SUCCESS));
+            .body(CommonResponse.successNodata(USER_UPDATE_PASSWORD_SUCCESS));
+    }
+
+    /**
+     * 회원 탈퇴
+     */
+    @Operation(
+        summary = "회원 탈퇴",
+        description = """
+                    해당 계정을 탈퇴합니다. 탈퇴한 계정은 논리적으로 삭제됩니다.
+                    """
+    )
+    @DeleteMapping("/me")
+    public ResponseEntity<CommonResponse<Boolean>> deleteUser(
+        @AuthenticationPrincipal AuthUser authUser
+    ) {
+
+        boolean result = userService.deleteUser(authUser);
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.success(USER_DELETE_SUCCESS, result));
     }
 }
