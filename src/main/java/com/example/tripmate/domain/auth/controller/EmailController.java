@@ -1,7 +1,5 @@
 package com.example.tripmate.domain.auth.controller;
 
-import static com.example.tripmate.common.enums.SuccessMessage.AUTH_EMAIL_VERIFY_SUCCESS;
-
 import com.example.tripmate.common.dto.CommonResponse;
 import com.example.tripmate.common.enums.SuccessMessage;
 import com.example.tripmate.domain.auth.dto.request.EmailConfirmRequest;
@@ -40,7 +38,7 @@ public class EmailController {
 
         emailService.sendVerificationEmail(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.successNodata(SuccessMessage.AUTH_EMAIL_SEND_SUCCESS));
     }
 
@@ -59,6 +57,7 @@ public class EmailController {
     ) {
         boolean isVerified = emailService.verifyCode(request);
 
-        return ResponseEntity.ok(CommonResponse.success(AUTH_EMAIL_VERIFY_SUCCESS, isVerified));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.success(SuccessMessage.AUTH_EMAIL_VERIFY_SUCCESS, isVerified));
     }
 }

@@ -25,6 +25,9 @@ public enum ErrorCode {
 
     // 유저
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
+    SAME_PASSWORD(HttpStatus.BAD_REQUEST, "현재 비밀번호와 새 비밀번호가 동일합니다."),
+    SAME_NICKNAME(HttpStatus.BAD_REQUEST, "현재 닉네임과 새 닉네임이 동일합니다."),
+
     ;
 
     private final HttpStatus status;
