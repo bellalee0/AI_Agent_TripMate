@@ -6,6 +6,7 @@ import static com.example.tripmate.common.enums.SuccessMessage.USER_UPDATE_PROFI
 
 import com.example.tripmate.common.dto.AuthUser;
 import com.example.tripmate.common.dto.CommonResponse;
+import com.example.tripmate.domain.user.dto.request.UserUpdatePasswordRequest;
 import com.example.tripmate.domain.user.dto.request.UserUpdateProfileRequest;
 import com.example.tripmate.domain.user.dto.response.UserGetProfileResponse;
 import com.example.tripmate.domain.user.service.UserService;
@@ -90,5 +91,26 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(CommonResponse.success(USER_UPDATE_PROFILE_SUCCESS, response));
+    }
+
+    /**
+     * 비빌번호 변경
+     */
+    @Operation(
+        summary = "비밀번호 변경",
+        description = """
+                    비밀번호를 변경합니다
+                    """
+    )
+    @PatchMapping("/me/password")
+    public ResponseEntity<CommonResponse<Void>> updatePassword(
+        @AuthenticationPrincipal AuthUser authUser,
+        @Valid @RequestBody UserUpdatePasswordRequest request
+    ) {
+
+        userService.updatePassword(authUser, request);
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(CommonResponse.successNodata(USER_UPDATE_PROFILE_SUCCESS));
     }
 }
