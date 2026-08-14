@@ -97,13 +97,15 @@ public class AuthService {
 
         String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail(), user.getRole());
 
+        String newRefreshToken = refreshToken;
+
         if (jwtUtil.expireInTwoDays(refreshToken)) {
-            refreshToken = jwtUtil.generateRefreshToken(userId);
-            userRefresh.updateRefreshToken(refreshToken);
+            newRefreshToken = jwtUtil.generateRefreshToken(userId);
+            userRefresh.updateRefreshToken(newRefreshToken);
             refreshTokenRepository.saveAndFlush(userRefresh);
         }
 
-        return new AuthTokenResponse(accessToken, refreshToken);
+        return new AuthTokenResponse(accessToken, newRefreshToken);
     }
 
     /**
