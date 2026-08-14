@@ -18,7 +18,7 @@ public enum SuccessMessage {
 
     // 유저
     USER_GET_MY_PROFILE_SUCCESS("내 프로필 정보 조회 성공"),
-    USER_GET_USER_PROFILE_SUCCESS("내 프로필 정보 조회 성공"),
+    USER_GET_USER_PROFILE_SUCCESS("다른 유저 프로필 정보 조회 성공"),
     USER_UPDATE_PROFILE_SUCCESS("내 프로필 정보 수정 성공"),
     USER_UPDATE_PASSWORD_SUCCESS("비밀번호 변경 성공"),
     USER_DELETE_SUCCESS("회원 탈퇴 성공"),
