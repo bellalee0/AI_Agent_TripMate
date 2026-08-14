@@ -64,7 +64,7 @@ public class UserService {
     }
 
     /**
-     * 비빌번호 변경
+     * 비밀번호 변경
      */
     @Transactional
     public void updatePassword(AuthUser authUser, UserUpdatePasswordRequest request) {

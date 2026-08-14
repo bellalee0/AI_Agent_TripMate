@@ -97,7 +97,7 @@ public class UserController {
     }
 
     /**
-     * 비빌번호 변경
+     * 비밀번호 변경
      */
     @Operation(
         summary = "비밀번호 변경",
