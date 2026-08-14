@@ -321,21 +321,21 @@ public class UserService {
 
 ### Given-When-Then 구조 사용
 
-테스트 메서드 내부를 given / when / then 세 블록으로 명확히 구분하고 주석으로 표시한다.
+테스트 메서드 내부를 given(Given) / when(When) / then(Then) 세 블록으로 명확히 구분하고 주석으로 표시한다.
 
 ```java
 @Test
 void getTodo_성공() {
 
-    // given
+    // given(Given)
     Long todoId = 1L;
     Todo todo = TodoFixture.create(todoId);
     given(todoRepository.findTodoById(todoId)).willReturn(todo);
 
-    // when
+    // when(When)
     TodoResponse response = todoService.getTodo(todoId);
 
-    // then
+    // then(Then)
     assertThat(response.id()).isEqualTo(todoId);
 }
 ```
